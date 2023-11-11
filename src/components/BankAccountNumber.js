@@ -1,8 +1,8 @@
 import { useState, forwardRef, useRef, useImperativeHandle, useCallback } from "react";
 import {XCircleIcon} from "@heroicons/react/24/outline"
-import SBI from "../sbi-account-number.jpeg"
-import Canara from "../canara-bank-account-number.jpeg"
-import Indianbank from "../bank-account-number-Indian-Bank.jpeg"
+import SBI from "../images/sbi-account-number.jpeg"
+import Canara from "../images/canara-bank-account-number.jpeg"
+import Indianbank from "../images/bank-account-number-Indian-Bank.jpeg"
 import "../dist/output.css";
 
 const Images = {

@@ -1,6 +1,6 @@
 import { useState, forwardRef, useRef, useImperativeHandle, useCallback } from "react";
 import {XCircleIcon} from "@heroicons/react/24/outline"
-import AadhaarImage from "../aadhaar-name.png"
+import AadhaarImage from "../images/aadhaar-name.png"
 import "../dist/output.css";
 
 const AadhaarInformation = forwardRef(function MyInput(props, ref) {

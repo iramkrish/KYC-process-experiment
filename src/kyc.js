@@ -1,4 +1,6 @@
 import {useState, useEffect} from 'react'
+import lottie from "lottie-web";
+import doneAnimation from "./lottie/loading-Animation.json"
 
 export default function KYC({ifscvalid, handleifsc}){
     const user_name = localStorage.getItem('user_name');
@@ -11,12 +13,28 @@ export default function KYC({ifscvalid, handleifsc}){
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const animation = lottie.loadAnimation({
+        name:'kyccheck',
+        container: document.querySelector("#doneAnimation"),
+        animationData: doneAnimation,
+        loop: true,
+        autoplay: false
+      });
+
+      useEffect(() => {
+        if(loading){
+          animation.play('kyccheck')
+        }else{
+          animation.destroy('kyccheck');
+        }
+      }, [loading,animation]);
+
     const submitkyc = () => {
         setvalidateKYC(true)
     }
 
     useEffect(() => {
-        if (validateKYC) {
+        if (validateKYC && !KYCvalidated) {
           setLoading(true)
           const body = {
             "receiver":bank_account_number,
@@ -37,7 +55,6 @@ export default function KYC({ifscvalid, handleifsc}){
           response
             .then((data) => data.json())
             .then((data) => {
-            console.log(data)
             if(data?.error){
                 console.log('error')
                 setLoading(false);
@@ -46,6 +63,7 @@ export default function KYC({ifscvalid, handleifsc}){
             }else{
                 setLoading(false)
                 setKYCtry(true)
+                setKYCvalidated(true)
             }
 
             })
@@ -54,10 +72,13 @@ export default function KYC({ifscvalid, handleifsc}){
               console.log(error)
             });
         }
-      }, [validateKYC,bank_account_number,user_name,bank_ifsc_number])
+      }, [validateKYC,KYCvalidated,bank_account_number,user_name,bank_ifsc_number])
 
     return (
     <div className="flex flex-col justify-start px-8 pt-6 pb-8 mb-4">
+        <div className={`h-full w-full absolute left-0 top-0 bg-white/80 flex-col justify-center items-center ${loading ? 'flex' : 'hidden'}`}>
+            <div id="doneAnimation" className="h-10 w-10"></div>
+        </div>
         <p className="mb-4">KYC screen</p>
         <div className="flex flex-row">
             <p>Name :</p>
