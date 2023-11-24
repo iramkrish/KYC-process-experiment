@@ -55,21 +55,17 @@ export default function KYC({ifscvalid, handleifsc}){
           response
             .then((data) => data.json())
             .then((data) => {
-            if(data?.error){
-                console.log('error')
-                setLoading(false);
-                setKYCtry(true)
-                setError(true)
-            }else{
-                setLoading(false)
-                setKYCtry(true)
-                setKYCvalidated(true)
-            }
-
+              setLoading(false);
+              setKYCtry(true)
+              if(data?.error){
+                  setError(true)
+              }
             })
             .catch((error) => {
-
               console.log(error)
+              setLoading(false)
+              setError(true)
+              setKYCtry(true)
             });
         }
       }, [validateKYC,KYCvalidated,bank_account_number,user_name,bank_ifsc_number])
